@@ -1,0 +1,13 @@
+networks:
+  roboshop:
+    driver: bridge
+
+services:
+  mongodb:
+    build : 
+      context : ./mongodb
+      dockerfile: dockerfile
+    image: mongodb:v1
+    container_name: mongodb
+    networks:
+      - roboshop
