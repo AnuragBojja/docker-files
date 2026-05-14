@@ -12,16 +12,16 @@ services:
     networks:
       - roboshop
   
-  # catalogue:
-  #   build:
-  #     context: ./catalogue
-  #     dockerfile: dockerfile
-  #   image: catalogue:v1
-  #   container_name: catalogue
-  #   networks:
-  #     - roboshop
-  #   depends_on:
-  #     - mongodb
+  catalogue:
+    build:
+      context: ./catalogue
+      dockerfile: dockerfile
+    image: catalogue:v1
+    container_name: catalogue
+    networks:
+      - roboshop
+    depends_on:
+      - mongodb
   
   # redis:
   #   image: redis:7
