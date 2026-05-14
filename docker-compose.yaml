@@ -45,8 +45,8 @@ services:
     build: 
       context: ./cart
       dockerfile: dockerfile
-    image: user:v1
-    container_name: user
+    image: cart:v1
+    container_name: cart
     networks:
       - roboshop
     depends_on:
