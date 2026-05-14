@@ -23,22 +23,22 @@ services:
     depends_on:
       - mongodb
   
-  # redis:
-  #   image: redis:7
-  #   container_name: redis
-  #   networks:
-  #     - roboshop
+  redis:
+    image: redis:7
+    container_name: redis
+    networks:
+      - roboshop
   
-  # user:
-  #   build:
-  #     context: ./user
-  #     dockerfile: dockerfile
-  #   image: user:v1
-  #   container_name: user
-  #   networks:
-  #     - roboshop
-  #   depends_on:
-  #     - mongodb
-  #     - redis
+  user:
+    build:
+      context: ./user
+      dockerfile: dockerfile
+    image: user:v1
+    container_name: user
+    networks:
+      - roboshop
+    depends_on:
+      - mongodb
+      - redis
     
     
