@@ -41,4 +41,72 @@ services:
       - mongodb
       - redis
     
+  cart:
+    build: 
+      context: ./cart
+      dockerfile: dockerfile
+    image: user:v1
+    container_name: user
+    networks:
+      - roboshop
+    depends_on:
+      - redis
+  
+  mysql:
+    build: 
+      context: ./mysql
+      dockerfile: dockerfile
+    image: mysql:v1
+    container_name: mysql
+    networks:
+      - roboshop
+  
+  shipping:
+    build: 
+      context: ./shipping
+      dockerfile: dockerfile
+    image: shipping:v1
+    container_name: shipping
+    networks:
+      - roboshop
+    depends_on:
+      - mysql
+  
+  rabbitmq:
+    image: rabbitmq:3
+    container_name: rabbitmq
+    networks:
+      - roboshop
+    environment:
+      - RABBITMQ_DEFAULT_USER=roboshop
+      - RABBITMQ_DEFAULT_PASS=roboshop123
+  
+  payment:
+    build:
+      context: ./payment
+      dockerfile: dockerfile
+    image: payment:v1
+    container_name: payment
+    networks:
+      - roboshop
+    depends_on:
+      - rabbitmq
+  
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: dockerfile
+    image: frontend:v1
+    container_name: frontend
+    ports:
+      - "80:80"
+    networks:
+      - roboshop
+    depends_on:
+      - catalogue
+      - cart
+      - shipping
+      - payment
+      - user
+
     
